@@ -29,5 +29,8 @@ http://www.alphago-games.com/
 https://deepmind.com/research/alphago/
 
 
-# Alpa Go implementations
+# Alpa Go implementations from students
 https://github.com/Rochester-NRT/RocAlphaGo
+
+# Alpha Go implementation from Open AI
+https://gym.openai.com/envs/Go9x9-v0/
