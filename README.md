@@ -1,3 +1,11 @@
+# How to start
+
+Please make your own notebook inside of the notebooks folder.
+Sort of like
+eric-alphago.ipynb
+egil-alphago.ipynb
+
+
 # AGZ-stockholm-week
 alpha go zero during a weekeend
 
