@@ -27,3 +27,7 @@ https://www.nature.com/articles/550336a.epdf?shared_access_token=QbXlOw9nSIP_MS1
 # Resources
 http://www.alphago-games.com/
 https://deepmind.com/research/alphago/
+
+
+# Alpa Go implementations
+https://github.com/Rochester-NRT/RocAlphaGo
