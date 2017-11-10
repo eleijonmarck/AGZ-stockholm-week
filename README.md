@@ -3,6 +3,15 @@ alpha go zero during a weekeend
 
 ![title](https://cdn-images-1.medium.com/max/2000/1*0pn33bETjYOimWjlqDLLNw.png)
 
+# Problems to solve
+
+# Paper
+
+
+# Math
+
+# Development
+
 # Rules of Go
 
 # Reinforcement learning
