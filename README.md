@@ -5,6 +5,10 @@ alpha go zero during a weekeend
 
 # Problems to solve
 
+# Building game state
+![title](https://i.imgur.com/iDIFc35.png)
+
+
 # Paper
 
 
