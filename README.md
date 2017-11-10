@@ -8,6 +8,18 @@ alpha go zero during a weekeend
 # Building game state
 ![title](https://i.imgur.com/iDIFc35.png)
 
+![title](https://i.imgur.com/QrlVitc.png)
+
+![title](https://i.imgur.com/JaP8WRv.png)
+
+![title](https://i.imgur.com/XfwxCJt.png)
+
+![title](https://i.imgur.com/AztCItY.png)
+
+![title](https://i.imgur.com/QrlVitc.png)
+
+![title](https://i.imgur.com/DPXE0mT.pngg)
+
 
 # Paper
 
