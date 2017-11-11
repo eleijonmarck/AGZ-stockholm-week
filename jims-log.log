@@ -1,0 +1,760 @@
+*[master][~/Prylar/alpha-go/AGZ]$ ipython
+Python 2.7.10 (default, Jun  1 2015, 09:44:56) 
+Type "copyright", "credits" or "license" for more information.
+
+IPython 5.5.0 -- An enhanced Interactive Python.
+?         -> Introduction and overview of IPython's features.
+%quickref -> Quick reference.
+help      -> Python's own help system.
+object?   -> Details about 'object', use 'object??' for extra details.
+
+In [1]: import keras
+Using TensorFlow backend.
+
+In [2]: keras.layers.Conv2D?
+Init signature: keras.layers.Conv2D(self, filters, kernel_size, strides=(1, 1), padding='valid'Init IniInInit signature: keras.layers.Conv2D(self, filters, kernel_size, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1), activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None, **kwargs)
+Docstring:     
+2D convolution layer (e.g. spatial convolution over images).
+
+This layer creates a convolution kernel that is convolved
+with the layer input to produce a tensor of
+outputs. If `use_bias` is True,
+a bias vector is created and added to the outputs. Finally, if
+`activation` is not `None`, it is applied to the outputs as well.
+
+When using this layer as the first layer in a model,
+provide the keyword argument `input_shape`
+(tuple of integers, does not include the sample axis),
+e.g. `input_shape=(128, 128, 3)` for 128x128 RGB pictures
+in `data_format="channels_last"`.
+
+# Arguments
+    filters: Integer, the dimensionality of the output space
+        (i.e. the number output of filters in the convolution).
+    kernel_size: An integer or tuple/list of 2 integers, specifying the
+        width and height of the 2D convolution window.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+    strides: An integer or tuple/list of 2 integers,
+        specifying the strides of the convolution along the width and height.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+        Specifying any stride value != 1 is incompatible with specifying
+        any `dilation_rate` value != 1.
+    padding: one of `"valid"` or `"same"` (case-insensitive).
+    data_format: A string,
+        one of `channels_last` (default) or `channels_first`.
+        The ordering of the dimensions in the inputs.
+        `channels_last` corresponds to inputs with shape
+        `(batch, height, width, channels)` while `channels_first`
+        corresponds to inputs with shape
+        `(batch, channels, height, width)`.
+        It defaults to the `image_data_format` value found in your
+        Keras config file at `~/.keras/keras.json`.
+        If you never set it, then it will be "channels_last".
+    dilation_rate: an integer or tuple/list of 2 integers, specifying
+        the dilation rate to use for dilated convolution.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+        Currently, specifying any `dilation_rate` value != 1 is
+        incompatible with specifying any stride value != 1.
+
+In [3]: keras.layers.Conv2D(256, (3,3))
+Out[3]: <keras.layers.convolutional.Conv2D at 0x1143f9090>
+
+In [4]: keras.layers.BatchNormalization?
+Init signature: keras.layers.BatchNormalization(self, axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True, beta_initializer='zeros', gamma_initializer='ones', moving_mean_initializer='zeros', moving_variance_initializer='ones', beta_regularizer=None, gamma_regularizer=None, beta_constraint=None, gamma_constraint=None, **kwargs)
+Docstring:     
+Batch normalization layer (Ioffe and Szegedy, 2014).
+
+Normalize the activations of the previous layer at each batch,
+i.e. applies a transformation that maintains the mean activation
+close to 0 and the activation standard deviation close to 1.
+
+# Arguments
+    axis: Integer, the axis that should be normalized
+        (typically the features axis).
+        For instance, after a `Conv2D` layer with
+        `data_format="channels_first"`,
+        set `axis=1` in `BatchNormalization`.
+    momentum: Momentum for the moving average.
+    epsilon: Small float added to variance to avoid dividing by zero.
+    center: If True, add offset of `beta` to normalized tensor.
+        If False, `beta` is ignored.
+    scale: If True, multiply by `gamma`.
+        If False, `gamma` is not used.
+        When the next layer is linear (also e.g. `nn.relu`),
+        this can be disabled since the scaling
+        will be done by the next layer.
+    beta_initializer: Initializer for the beta weight.
+    gamma_initializer: Initializer for the gamma weight.
+    moving_mean_initializer: Initializer for the moving mean.
+    moving_variance_initializer: Initializer for the moving variance.
+    beta_regularizer: Optional regularizer for the beta weight.
+    gamma_regularizer: Optional regularizer for the gamma weight.
+    beta_constraint: Optional constraint for the beta weight.
+    gamma_constraint: Optional constraint for the gamma weight.
+
+# Input shape
+    Arbitrary. Use the keyword argument `input_shape`
+    (tuple of integers, does not include the samples axis)
+    when using this layer as the first layer in a model.
+
+# Output shape
+    Same shape as input.
+
+# References
+    - [Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift](https://arxiv.org/abs/1502.03167)
+File:           /usr/local/lib/python2.7/site-packages/keras/layers/normalization.py
+Type:           type
+
+In [5]: keras.layers.BatchNormalization()
+Out[5]: <keras.layers.normalization.BatchNormalization at 0x113df2d90>
+
+In [6]: layer = keras.layers.Conv2D(256, (3,3))
+
+In [7]: f = layer1
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-7-13770574ec63> in <module>()
+----> 1 f = layer1
+
+NameError: name 'layer1' is not defined
+
+In [8]: Input = keras.layers.Input
+
+In [9]: Input
+Out[9]: <function keras.engine.topology.Input>
+
+In [10]: Input = keras.layers.Input()
+---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+<ipython-input-10-81713baa2416> in <module>()
+----> 1 Input = keras.layers.Input()
+
+/usr/local/lib/python2.7/site-packages/keras/engine/topology.pyc in Input(shape, batch_shape, name, dtype, sparse, tensor)
+   1415     """
+   1416     if not batch_shape and tensor is None:
+-> 1417         assert shape, ('Please provide to Input either a `shape`'
+   1418                        ' or a `batch_shape` argument. Note that '
+   1419                        '`shape` does not include the batch '
+
+AssertionError: Please provide to Input either a `shape` or a `batch_shape` argument. Note that `shape` does not include the batch dimension.
+
+In [11]: cnn =  keras.layers.Conv2D(256, (3, 3))
+
+In [12]: cnn?
+Signature:      cnn(self, inputs, **kwargs)
+Call signature: cnn(inputs, **kwargs)
+Type:           Conv2D
+String form:    <keras.layers.convolutional.Conv2D object at 0x114408610>
+File:           /usr/local/lib/python2.7/site-packages/keras/layers/convolutional.py
+Docstring:     
+2D convolution layer (e.g. spatial convolution over images).
+
+This layer creates a convolution kernel that is convolved
+with the layer input to produce a tensor of
+outputs. If `use_bias` is True,
+a bias vector is created and added to the outputs. Finally, if
+`activation` is not `None`, it is applied to the outputs as well.
+
+When using this layer as the first layer in a model,
+provide the keyword argument `input_shape`
+(tuple of integers, does not include the sample axis),
+e.g. `input_shape=(128, 128, 3)` for 128x128 RGB pictures
+in `data_format="channels_last"`.
+
+# Arguments
+    filters: Integer, the dimensionality of the output space
+        (i.e. the number output of filters in the convolution).
+    kernel_size: An integer or tuple/list of 2 integers, specifying the
+        width and height of the 2D convolution window.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+    strides: An integer or tuple/list of 2 integers,
+        specifying the strides of the convolution along the width and height.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+        Specifying any stride value != 1 is incompatible with specifying
+        any `dilation_rate` value != 1.
+    padding: one of `"valid"` or `"same"` (case-insensitive).
+    data_format: A string,
+        one of `channels_last` (default) or `channels_first`.
+        The ordering of the dimensions in the inputs.
+        `channels_last` corresponds to inputs with shape
+        `(batch, height, width, channels)` while `channels_first`
+        corresponds to inputs with shape
+        `(batch, channels, height, width)`.
+        It defaults to the `image_data_format` value found in your
+        Keras config file at `~/.keras/keras.json`.
+        If you never set it, then it will be "channels_last".
+    dilation_rate: an integer or tuple/list of 2 integers, specifying
+        the dilation rate to use for dilated convolution.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+
+In [13]: cnn
+Out[13]: <keras.layers.convolutional.Conv2D at 0x114408610>
+
+In [14]: cnn
+Out[14]: <keras.layers.convolutional.Conv2D at 0x114408610>
+
+In [15]: cnn?
+Signature:      cnn(self, inputs, **kwargs)
+Call signature: cnn(inputs, **kwargs)
+Type:           Conv2D
+String form:    <keras.layers.convolutional.Conv2D object at 0x114408610>
+File:           /usr/local/lib/python2.7/site-packages/keras/layers/convolutional.py
+Docstring:     
+2D convolution layer (e.g. spatial convolution over images).
+
+This layer creates a convolution kernel that is convolved
+with the layer input to produce a tensor of
+outputs. If `use_bias` is True,
+a bias vector is created and added to the outputs. Finally, if
+`activation` is not `None`, it is applied to the outputs as well.
+
+When using this layer as the first layer in a model,
+provide the keyword argument `input_shape`
+(tuple of integers, does not include the sample axis),
+e.g. `input_shape=(128, 128, 3)` for 128x128 RGB pictures
+in `data_format="channels_last"`.
+
+# Arguments
+    filters: Integer, the dimensionality of the output space
+        (i.e. the number output of filters in the convolution).
+    kernel_size: An integer or tuple/list of 2 integers, specifying the
+        width and height of the 2D convolution window.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+    strides: An integer or tuple/list of 2 integers,
+        specifying the strides of the convolution along the width and height.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+        Specifying any stride value != 1 is incompatible with specifying
+        any `dilation_rate` value != 1.
+    padding: one of `"valid"` or `"same"` (case-insensitive).
+    data_format: A string,
+        one of `channels_last` (default) or `channels_first`.
+        The ordering of the dimensions in the inputs.
+        `channels_last` corresponds to inputs with shape
+        `(batch, height, width, channels)` while `channels_first`
+        corresponds to inputs with shape
+        `(batch, channels, height, width)`.
+        It defaults to the `image_data_format` value found in your
+        Keras config file at `~/.keras/keras.json`.
+        If you never set it, then it will be "channels_last".
+    dilation_rate: an integer or tuple/list of 2 integers, specifying
+        the dilation rate to use for dilated convolution.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+
+In [16]: input_ = keras.layers.Input()
+---------------------------------------------------------------------------
+AssertionError                            Traceback (most recent call last)
+<ipython-input-16-fa37d6f8ad26> in <module>()
+----> 1 input_ = keras.layers.Input()
+
+/usr/local/lib/python2.7/site-packages/keras/engine/topology.pyc in Input(shape, batch_shape, name, dtype, sparse, tensor)
+   1415     """
+   1416     if not batch_shape and tensor is None:
+-> 1417         assert shape, ('Please provide to Input either a `shape`'
+   1418                        ' or a `batch_shape` argument. Note that '
+   1419                        '`shape` does not include the batch '
+
+AssertionError: Please provide to Input either a `shape` or a `batch_shape` argument. Note that `shape` does not include the batch dimension.
+
+In [17]: input_ = keras.layers.Input(shape=(17, 19, 19))
+
+In [18]: input_
+Out[18]: <tf.Tensor 'input_1:0' shape=(?, 17, 19, 19) dtype=float32>
+
+In [19]: cnn(input_)
+Out[19]: <tf.Tensor 'conv2d_3/BiasAdd:0' shape=(?, 15, 17, 256) dtype=float32>
+
+In [20]: cnn =  keras.layers.Conv2D(256, (3, 3))
+
+In [21]: cnn(input_)
+Out[21]: <tf.Tensor 'conv2d_4/BiasAdd:0' shape=(?, 15, 17, 256) dtype=float32>
+
+In [22]: input_ = keras.layers.Input(shape=( 19, 19, 17))
+
+In [23]: cnn(input_)
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-23-faeb4a853248> in <module>()
+----> 1 cnn(input_)
+
+/usr/local/lib/python2.7/site-packages/keras/engine/topology.pyc in __call__(self, inputs, **kwargs)
+    578             # Raise exceptions in case the input is not compatible
+    579             # with the input_spec set at build time.
+--> 580             self.assert_input_compatibility(inputs)
+    581 
+    582             # Handle mask propagation.
+
+/usr/local/lib/python2.7/site-packages/keras/engine/topology.pyc in assert_input_compatibility(self, inputs)
+    488                                              str(axis) + ' of input shape to have '
+    489                                              'value ' + str(value) +
+--> 490                                              ' but got shape ' + str(x_shape))
+    491             # Check shape.
+    492             if spec.shape is not None:
+
+ValueError: Input 0 is incompatible with layer conv2d_4: expected axis -1 of input shape to have value 19 but got shape (None, 19, 19, 17)
+
+In [24]: cnn =  keras.layers.Conv2D(256, (3, 3))
+
+In [25]: 
+
+In [25]: cnn?/
+  File "<ipython-input-25-3210d3d40238>", line 1
+    cnn?/
+       ^
+SyntaxError: invalid syntax
+
+
+In [26]: cnn?
+Signature:      cnn(self, inputs, **kwargs)
+Call signature: cnn(inputs, **kwargs)
+Type:           Conv2D
+String form:    <keras.layers.convolutional.Conv2D object at 0x114540d90>
+File:           /usr/local/lib/python2.7/site-packages/keras/layers/convolutional.py
+Docstring:     
+2D convolution layer (e.g. spatial convolution over images).
+
+This layer creates a convolution kernel that is convolved
+with the layer input to produce a tensor of
+outputs. If `use_bias` is True,
+a bias vector is created and added to the outputs. Finally, if
+`activation` is not `None`, it is applied to the outputs as well.
+
+When using this layer as the first layer in a model,
+provide the keyword argument `input_shape`
+(tuple of integers, does not include the sample axis),
+e.g. `input_shape=(128, 128, 3)` for 128x128 RGB pictures
+in `data_format="channels_last"`.
+
+# Arguments
+    filters: Integer, the dimensionality of the output space
+        (i.e. the number output of filters in the convolution).
+    kernel_size: An integer or tuple/list of 2 integers, specifying the
+        width and height of the 2D convolution window.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+    strides: An integer or tuple/list of 2 integers,
+        specifying the strides of the convolution along the width and height.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+        Specifying any stride value != 1 is incompatible with specifying
+        any `dilation_rate` value != 1.
+    padding: one of `"valid"` or `"same"` (case-insensitive).
+    data_format: A string,
+        one of `channels_last` (default) or `channels_first`.
+        The ordering of the dimensions in the inputs.
+        `channels_last` corresponds to inputs with shape
+        `(batch, height, width, channels)` while `channels_first`
+        corresponds to inputs with shape
+        `(batch, channels, height, width)`.
+        It defaults to the `image_data_format` value found in your
+        Keras config file at `~/.keras/keras.json`.
+        If you never set it, then it will be "channels_last".
+    dilation_rate: an integer or tuple/list of 2 integers, specifying
+        the dilation rate to use for dilated convolution.
+        Can be a single integer to specify the same value for
+        all spatial dimensions.
+
+In [27]: cnn
+Out[27]: <keras.layers.convolutional.Conv2D at 0x114540d90>
+
+In [28]: cnn =  keras.layers.Conv2D(256, (3, 3))
+
+In [29]: input_
+Out[29]: <tf.Tensor 'input_2:0' shape=(?, 19, 19, 17) dtype=float32>
+
+In [30]: input_
+Out[30]: <tf.Tensor 'input_2:0' shape=(?, 19, 19, 17) dtype=float32>
+
+In [31]: cnn(input_)
+Out[31]: <tf.Tensor 'conv2d_6/BiasAdd:0' shape=(?, 17, 17, 256) dtype=float32>
+
+In [32]: cnn??
+Signature:      cnn(self, inputs, **kwargs)
+Signature:      cnn(self, inputs, **kwargs)
+Call signature: cnn(inputs, **kwargs)
+Type:           Conv2D
+String form:    <keras.layers.convolutional.Conv2D object at 0x114536a50>
+File:           /usr/local/lib/python2.7/site-packages/keras/layers/convolutional.py
+Source:        
+class Conv2D(_Conv):
+    """2D convolution layer (e.g. spatial convolution over images).
+
+    This layer creates a convolution kernel that is convolved
+    with the layer input to produce a tensor of
+    outputs. If `use_bias` is True,
+    a bias vector is created and added to the outputs. Finally, if
+    `activation` is not `None`, it is applied to the outputs as well.
+
+    When using this layer as the first layer in a model,
+    provide the keyword argument `input_shape`
+    (tuple of integers, does not include the sample axis),
+    e.g. `input_shape=(128, 128, 3)` for 128x128 RGB pictures
+    in `data_format="channels_last"`.
+
+    # Arguments
+        filters: Integer, the dimensionality of the output space
+            (i.e. the number output of filters in the convolution).
+        kernel_size: An integer or tuple/list of 2 integers, specifying the
+            width and height of the 2D convolution window.
+            Can be a single integer to specify the same value for
+            all spatial dimensions.
+        strides: An integer or tuple/list of 2 integers,
+            specifying the strides of the convolution along the width and height.            Can be a single integer to specify the same value for
+            all spatial dimensions.
+            Specifying any stride value != 1 is incompatible with specifying
+            any `dilation_rate` value != 1.
+        padding: one of `"valid"` or `"same"` (case-insensitive).
+        data_format: A string,
+            one of `channels_last` (default) or `channels_first`.
+            The ordering of the dimensions in the inputs.
+            `channels_last` corresponds to inputs with shape
+            `(batch, height, width, channels)` while `channels_first`
+            corresponds to inputs with shape
+            `(batch, channels, height, width)`.
+            It defaults to the `image_data_format` value found in your
+            Keras config file at `~/.keras/keras.json`.
+            If you never set it, then it will be "channels_last".
+        dilation_rate: an integer or tuple/list of 2 integers, specifying
+            the dilation rate to use for dilated convolution.
+            Can be a single integer to specify the same value for
+            all spatial dimensions.
+            Currently, specifying any `dilation_rate` value != 1 is
+            incompatible with specifying any stride value != 1.
+        activation: Activation function to use
+            (see [activations](../activations.md)).
+            If you don't specify anything, no activation is applied
+            (ie. "linear" activation: `a(x) = x`).
+        use_bias: Boolean, whether the layer uses a bias vector.
+        kernel_initializer: Initializer for the `kernel` weights matrix
+            (see [initializers](../initializers.md)).
+        bias_initializer: Initializer for the bias vector
+
+In [33]: cnn =  keras.layers.Conv2D(256, (3, 3), padding="same")
+
+In [34]: cnn(input_)))
+  File "<ipython-input-34-5f7c20b0d2da>", line 1
+    cnn(input_)))
+               ^
+SyntaxError: invalid syntax
+
+
+In [35]: cnn(input_)
+Out[35]: <tf.Tensor 'conv2d_7/BiasAdd:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [36]: keras.layers.BatchNormalization?
+Init signature: keras.layers.BatchNormalization(self, axis=-1, momentum=0.99, epsilon=0.001, center=True, scale=True, beta_initializer='zeros', gamma_initializer='ones', moving_mean_initializer='zeros', moving_variance_initializer='ones', beta_regularizer=None, gamma_regularizer=None, beta_constraint=None, gamma_constraint=None, **kwargs)
+Docstring:     
+Batch normalization layer (Ioffe and Szegedy, 2014).
+
+Normalize the activations of the previous layer at each batch,
+i.e. applies a transformation that maintains the mean activation
+close to 0 and the activation standard deviation close to 1.
+
+# Arguments
+    axis: Integer, the axis that should be normalized
+        (typically the features axis).
+        For instance, after a `Conv2D` layer with
+        `data_format="channels_first"`,
+        set `axis=1` in `BatchNormalization`.
+    momentum: Momentum for the moving average.
+    epsilon: Small float added to variance to avoid dividing by zero.
+    center: If True, add offset of `beta` to normalized tensor.
+        If False, `beta` is ignored.
+    scale: If True, multiply by `gamma`.
+        If False, `gamma` is not used.
+        When the next layer is linear (also e.g. `nn.relu`),
+        this can be disabled since the scaling
+        will be done by the next layer.
+    beta_initializer: Initializer for the beta weight.
+    gamma_initializer: Initializer for the gamma weight.
+    moving_mean_initializer: Initializer for the moving mean.
+    moving_variance_initializer: Initializer for the moving variance.
+    beta_regularizer: Optional regularizer for the beta weight.
+    gamma_regularizer: Optional regularizer for the gamma weight.
+    beta_constraint: Optional constraint for the beta weight.
+    gamma_constraint: Optional constraint for the gamma weight.
+
+# Input shape
+    Arbitrary. Use the keyword argument `input_shape`
+    (tuple of integers, does not include the samples axis)
+    when using this layer as the first layer in a model.
+
+# Output shape
+    Same shape as input.
+
+# References
+    - [Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift](https://arxiv.org/abs/1502.03167)
+File:           /usr/local/lib/python2.7/site-packages/keras/layers/normalization.py
+Type:           type
+
+In [37]: bn = keras.layers.BatchNormalization()
+
+In [38]: bn(cnn(input_))
+Out[38]: <tf.Tensor 'batch_normalization_2/cond/Merge:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [39]: relu = keras.activations.relu?
+Signature: keras.activations.relu(x, alpha=0.0, max_value=None)
+Docstring: <no docstring>
+File:      /usr/local/lib/python2.7/site-packages/keras/activations.py
+Type:      function
+
+In [40]: relu = keras.activations.relu
+
+In [41]: relu(input_)
+Out[41]: <tf.Tensor 'Relu:0' shape=(?, 19, 19, 17) dtype=float32>
+
+In [42]: relu(bn(cnn(input_)))
+Out[42]: <tf.Tensor 'Relu_1:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [43]: conv_layer = relu(bn(cnn(input_)))
+
+In [44]: conv_layer
+Out[44]: <tf.Tensor 'Relu_2:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [45]: bn(cnn(input_))
+Out[45]: <tf.Tensor 'batch_normalization_2_3/cond/Merge:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [46]: cnn(input_)
+Out[46]: <tf.Tensor 'conv2d_7_5/BiasAdd:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [47]: conv_layer = relu(bn(cnn(input_)))
+
+In [48]: conv_layer
+Out[48]: <tf.Tensor 'Relu_3:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [49]: residual_block
+--------------------------------------------------------------------------
+NameError                                Traceback (most recent call last)
+<ipython-input-49-b57cc3c1b984> in <module>()
+----> 1 residual_block
+
+NameError: name 'residual_block' is not defined
+
+In [50]: cnn =  keras.layers.Conv2D(256, (3, 3), padding="same")
+
+In [51]: def conv_layer(input_):
+    ...:     cnn = keras.layers.Conv2D(256, (3,3), padding="same")
+    ...:     bn = keras.layers.BatchNormalization()
+    ...:     relu = keras.activations.relu()
+    ...:     return relu(bn(cnn(input_)))
+    ...: 
+
+In [52]: conv_layer(input_)
+--------------------------------------------------------------------------
+TypeError                                Traceback (most recent call last)
+<ipython-input-52-cb257c2791e4> in <module>()
+----> 1 conv_layer(input_)
+
+<ipython-input-51-e85c9a77fbdd> in conv_layer(input_)
+      2     cnn = keras.layers.Conv2D(256, (3,3), padding="same")
+      3     bn = keras.layers.BatchNormalization()
+----> 4     relu = keras.activations.relu()
+      5     return relu(bn(cnn(input_)))
+
+TypeError: relu() takes at least 1 argument (0 given)
+
+In [53]: def conv_layer(input_):
+    ...:     cnn = keras.layers.Conv2D(256, (3,3), padding="same")
+    ...:     bn = keras.layers.BatchNormalization()
+    ...:     relu = keras.activations.relu
+    ...:     return relu(bn(cnn(input_)))
+    ...: 
+
+In [54]: 
+
+In [54]: conv_layer(input_)
+Out[54]: <tf.Tensor 'Relu_4:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [55]: conv_layer(input_)
+Out[55]: <tf.Tensor 'Relu_5:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [56]: def conv_layer(network):
+    ...:     cnn = keras.layers.Conv2D(256, (3,3), padding="same")
+    ...:     bn = keras.layers.BatchNormalization()
+    ...:     relu = keras.activations.relu
+    ...:     return relu(bn(cnn(network)))
+    ...: 
+    ...: 
+
+In [57]: conv_layer(conv_layer(input_))
+Out[57]: <tf.Tensor 'Relu_7:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [58]: 
+
+In [58]: 
+
+In [58]: reduce(lambda f, g: (lambda x: f(g(x))), [conv_layer] * 20)
+Out[58]: <function __main__.<lambda>>
+
+In [59]: reduce(lambda f, g: (lambda x: f(g(x))), [conv_layer] * 20)
+Out[59]: <function __main__.<lambda>>
+
+In [60]: 
+
+In [60]: 
+
+In [60]: 
+
+In [60]: reduce(lambda f, g: (lambda x: f(g(x))), [conv_layer] * 20)(input
+    ...: _)
+Out[60]: <tf.Tensor 'Relu_27:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [61]: reduce(lambda f, g: (lambda x: f(g(x))), [conv_layer] * 20)
+Out[61]: <function __main__.<lambda>>
+
+In [62]: reduce(lambda a, b: a + b, [1,2,3,4])
+Out[62]: 10
+
+In [63]: reduce(lambda a, b: lambda x: a(b(x)), [f,g,h])
+--------------------------------------------------------------------------
+NameError                                Traceback (most recent call last)
+<ipython-input-63-ce3dbe25325b> in <module>()
+----> 1 reduce(lambda a, b: lambda x: a(b(x)), [f,g,h])
+
+NameError: name 'f' is not defined
+
+In [64]: reduce(lambda a, b: lambda x: a(b(x)), [str, len])
+Out[64]: <function __main__.<lambda>>
+
+In [65]: reduce(lambda a, b: lambda x: a(b(x)), [len, str])(100)
+Out[65]: 3
+
+In [66]: str(100)
+Out[66]: '100'
+
+In [67]: reduce(lambda a, b: lambda x: a(b(x)), [len, str])
+Out[67]: <function __main__.<lambda>>
+
+In [68]: reduce(lambda f, g: (lambda x: f(g(x))), [conv_layer] * 20)
+Out[68]: <function __main__.<lambda>>
+
+In [69]: repeat = lambda f, n: reduce(lambda f, g: (lambda x: f(g(x))), [f
+    ...: ] * n)
+
+In [70]: repeat(conv_layer, 20)
+Out[70]: <function __main__.<lambda>>
+
+In [71]: repeat(conv_layer, 20)(input_)
+Out[71]: <tf.Tensor 'Relu_47:0' shape=(?, 19, 19, 256) dtype=float32>
+
+In [72]: def block(x, n_filter=256, kernel_size=(3, 3), bn_axis=3):, 
+  File "<ipython-input-72-ab9b928b4826>", line 1
+    def block(x, n_filter=256, kernel_size=(3, 3), bn_axis=3):,
+                                                              ^
+SyntaxError: invalid syntax
+
+
+In [73]: def block(x, n_filter=256, kernel_size=(3, 3), bn_axis=3):
+    ...:     y = conv_layer(x)
+    ...:     y = keras.layers.Conv2D(n_filter, kernel_size, padding='same'
+    ...: )(y)
+    ...:     y = keras.layers.BatchNormalization(bn_axis)(y)
+    ...:     y = keras.layers.Activation('relu')(y)
+    ...:     return keras.Activation('relu')(keras.layers.add([x, y]))
+    ...:    
+
+In [74]: def block(x, n_filter=256, kernel_size=(3, 3), bn_axis=3):
+    ...:     cnn = keras.layers.Conv2D(256, (3,3), padding="same")
+    ...:     bn = keras.layers.BatchNormalization(bn_axis)
+    ...:     relu = keras.activations.relu
+    ...:     y = bn(cnn(relu(bn(cnn(x)))))
+    ...:     return relu(layers.add([x, y]))
+    ...: 
+    ...:    
+
+In [75]: def block(x, n_filter=256, kernel_size=(3, 3), bn_axis=3):
+    ...:     cnn = keras.layers.Conv2D(n_filter, kernel_size, padding="sam
+    ...: e")
+    ...:     bn = keras.layers.BatchNormalization(bn_axis)
+    ...:     relu = keras.activations.relu
+    ...:     y = bn(cnn(relu(bn(cnn(x)))))
+    ...:     return relu(layers.add([x, y]))
+    ...: 
+
+In [76]: repeat(block, 20)
+Out[76]: <function __main__.<lambda>>
+
+In [77]: repeat(block, 20)(input_)
+--------------------------------------------------------------------------
+TypeError                                Traceback (most recent call last)
+<ipython-input-77-4c46e7093e82> in <module>()
+----> 1 repeat(block, 20)(input_)
+
+<ipython-input-69-dffa8bc55c37> in <lambda>(x)
+----> 1 repeat = lambda f, n: reduce(lambda f, g: (lambda x: f(g(x))), [f] * n)
+
+<ipython-input-75-a1e81b62f1c3> in block(x, n_filter, kernel_size, bn_axis)
+      1 def block(x, n_filter=256, kernel_size=(3, 3), bn_axis=3):
+      2     cnn = keras.layers.Conv2D(n_filter, kernel_size, padding="same")
+----> 3     bn = keras.layers.BatchNormalization(bn_axis)
+      4     relu = keras.activations.relu
+      5     y = bn(cnn(relu(bn(cnn(x)))))
+
+/usr/local/lib/python2.7/site-packages/keras/legacy/interfaces.pyc in wrapper(*args, **kwargs)
+     29                 object_name = func.__name__
+     30             if preprocessor:
+---> 31                 args, kwargs, converted = preprocessor(args, kwargs)
+     32             else:
+     33                 converted = []
+
+/usr/local/lib/python2.7/site-packages/keras/legacy/interfaces.pyc in batchnorm_args_preprocessor(args, kwargs)
+    439     converted = []
+    440     if len(args) > 1:
+--> 441         raise TypeError('The `BatchNormalization` layer '
+    442                         'does not accept positional arguments. '
+    443                         'Use keyword arguments instead.')
+
+TypeError: The `BatchNormalization` layer does not accept positional arguments. Use keyword arguments instead.
+
+In [78]: def block(x, n_filter=256, kernel_size=(3, 3), bn_axis=3):
+    ...:     cnn = keras.layers.Conv2D(n_filter, kernel_size, padding="sam
+    ...: e")
+    ...:     bn = keras.layers.BatchNormalization(axis=bn_axis)
+    ...:     relu = keras.activations.relu
+    ...:     y = bn(cnn(relu(bn(cnn(x)))))
+    ...:     return relu(layers.add([x, y]))
+    ...: 
+
+In [79]: repeat(block, 20)(input_)
+--------------------------------------------------------------------------
+ValueError                               Traceback (most recent call last)
+<ipython-input-79-4c46e7093e82> in <module>()
+----> 1 repeat(block, 20)(input_)
+
+<ipython-input-69-dffa8bc55c37> in <lambda>(x)
+----> 1 repeat = lambda f, n: reduce(lambda f, g: (lambda x: f(g(x))), [f] * n)
+
+<ipython-input-78-0dddfafac04c> in block(x, n_filter, kernel_size, bn_axis)
+      3     bn = keras.layers.BatchNormalization(axis=bn_axis)
+      4     relu = keras.activations.relu
+----> 5     y = bn(cnn(relu(bn(cnn(x)))))
+      6     return relu(layers.add([x, y]))
+
+/usr/local/lib/python2.7/site-packages/keras/engine/topology.pyc in __call__(self, inputs, **kwargs)
+    578             # Raise exceptions in case the input is not compatible
+    579             # with the input_spec set at build time.
+--> 580             self.assert_input_compatibility(inputs)
+    581 
+    582             # Handle mask propagation.
+
+/usr/local/lib/python2.7/site-packages/keras/engine/topology.pyc in assert_input_compatibility(self, inputs)
+    488                                              str(axis) + ' of input shape to have '
+    489                                              'value ' + str(value) +
+--> 490                                              ' but got shape ' + str(x_shape))
+    491             # Check shape.
+    492             if spec.shape is not None:
+
+ValueError: Input 0 is incompatible with layer conv2d_55: expected axis -1 of input shape to have value 17 but got shape (None, 19, 19, 256)
+
+In [80]: input_
+Out[80]: <tf.Tensor 'input_2:0' shape=(?, 19, 19, 17) dtype=float32>
+
+In [81]: 
